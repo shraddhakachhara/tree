@@ -1,0 +1,46 @@
+class Solution
+{
+    public:
+    int sumOf(Node* root){
+        if(root==NULL){
+            return 0;
+        }
+        if(!root->left && !root->right){
+            return root->data;
+        }
+        int sum1=0;
+        sum1=root->data+sumOf(root->left)+sumOf(root->right);
+        
+        return sum1;
+    }
+    
+    bool isSumTree(Node* root)
+    {
+        
+        if(root==NULL){
+            return 1;
+        }
+        // int sum2=sumOf(root->left)+sumOf(root->right);
+        if(!root->left && !root->right){
+            // cout<<"was called"<<endl;
+            return true;
+            // sum2=sumOf(root);
+        }
+        // cout<<"left sum of "<<root->data<<sumOf(root->left)<<endl;
+        // cout<<"right sum of "<<root->data<<sumOf(root->right)<<endl;
+        // cout<<"root sum is "<<sumOf(root)<<endl;
+        if(root->left||root->right){
+            if(root->data!=(sumOf(root->left)+sumOf(root->right))){
+                return false;
+            }
+        }
+        
+        // bool left1=isSumTree(root->left);
+        // bool right1=isSumTree(root->right);
+        // if(left1==right1 && left1==true){
+        //     return true;
+        // }
+        // (isSumTree(root->left) && isSumTree(root->right))
+        return (isSumTree(root->left) && isSumTree(root->right));
+    }
+};
