@@ -1,6 +1,47 @@
 class Solution
 {
     public:
+    pair<bool,int> isSumTreeFast(Node*root){
+        if(root==NULL){
+            pair<bool,int> p = make_pair(true,0);
+            return p; 
+        }
+        if(!root->left && !root->right){
+            pair<bool,int> p = make_pair(true,root->data);
+            return p;
+        }
+        pair<bool,int> ans=make_pair(true,0);
+        pair<bool,int> left1=isSumTreeFast(root->left);
+        pair<bool,int> right1=isSumTreeFast(root->right);
+        
+        
+        if(root->data==(left1.second+right1.second) && left1.first && right1.first){
+            // if(root->data!=(left1.second+right1.second)){
+            ans.first=true;
+            ans.second=2*root->data;
+            // ans.second=left1.second+right1.second;
+                // return ans;
+            // }
+        }
+        else{
+            ans.first=false;
+        }
+        return ans;
+        
+    }
+    
+    bool isSumTree(Node* root){
+        return isSumTreeFast(root).first;
+    }
+};
+
+
+
+
+
+class Solution
+{
+    public:
     int sumOf(Node* root){
         if(root==NULL){
             return 0;
