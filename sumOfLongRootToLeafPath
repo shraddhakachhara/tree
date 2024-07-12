@@ -1,0 +1,56 @@
+class Solution
+{
+public:
+
+    void solve(Node* root, int sum, int len, int &maxsum, int &maxlen){
+        if(root==NULL){
+            if(len>maxlen){
+                maxlen=len;
+                maxsum=sum;
+            }
+            else if(len==maxlen){
+                maxsum=max(sum,maxsum);
+            }
+            return ;
+        }
+        sum=sum+root->data;
+        
+        solve(root->left,sum,len+1,maxsum,maxlen);
+        solve(root->right,sum,len+1,maxsum,maxlen);
+        
+        return ;
+    }
+    
+    // int height(Node* root, int &sum){
+    //     if (root==NULL){
+    //         return 0;
+    //     }
+        
+    //     int left=height(root->left,sum);
+    //     int right=height(root->right,sum);
+    //     // sum=sum+root->data;
+    //     return max(left,right)+1;
+    // }
+    int sumOfLongRootToLeafPath(Node *root){
+        
+        int sum=0;
+        int len=0;
+        
+        int maxsum=0;
+        int maxlen=INT_MIN;
+        
+        solve(root,sum,len,maxsum,maxlen);
+        return maxsum;
+        // if (root==NULL){
+        //     return 0;
+        // }
+        // map<int,int> node;//sum,height
+        
+        // int sum=node.first;
+        // int noOfnodes=node.second;
+    //     int sum=0;
+    //     height(root,sum);
+        
+    //     return sum;
+    }
+};
