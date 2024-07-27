@@ -1,0 +1,37 @@
+class Solution {
+    int findpos(int in[], int element,int inorderstart, int inorderend){
+        for(int i=inorderstart;i<=inorderend;i++){
+            if(in[i]==element){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    Node* solve(int in[],int post[], int n, int &index,int inorderstart, int inorderend){
+        if(index<0 || inorderstart>inorderend){
+            return NULL;
+        }
+        int element=post[index--];
+        Node* root=new Node(element);
+        int position=findpos(in,element,inorderstart,inorderend);
+        
+        
+        //here we call root->right first because from right side(in postorder) we first see the element which is in the right side of inorder of root.
+        root->right=solve(in,post,n,index,position+1,inorderend);
+        root->left=solve(in,post,n,index,inorderstart,position-1);
+        // root->right=solve(in,post,n,index,position+1,inorderend);
+        
+        return root;
+    }
+    
+    
+  public:
+
+    // Function to return a tree created from postorder and inoreder traversals.
+    Node *buildTree(int n, int in[], int post[]) {
+        int index=n-1;
+        Node* root=solve(in,post,n,index,0,n-1);
+        return root;
+    }
+};
