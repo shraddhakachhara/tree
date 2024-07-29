@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* curr = root;
+        while(curr!=NULL){
+            if(!curr->left){
+                curr=curr->right;
+            }
+            else{
+                // finding predecsor
+                TreeNode* pre= curr->left;
+                TreeNode* temp= pre;
+                while(temp->right!=NULL){
+                    temp=temp->right;
+                }
+                temp->right=curr->right;
+                curr->right=pre;
+                curr->left=NULL;
+                curr=pre;
+            }
+        }
+    }
+};
